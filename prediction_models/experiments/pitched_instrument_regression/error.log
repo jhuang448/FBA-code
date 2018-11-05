@@ -1,0 +1,82 @@
+Please send us the following error report. Provide a brief
+description of what you were doing when this problem occurred.
+E-mail or FAX this information to us at:
+    E-mail:  marwan@pik-potsdam.de
+       Fax:  ++49 +331 288 2508
+Thank you for your assistance.
+
+
+--------------------------------------------------
+15-Oct-2018 22:48:25
+Matlab 9.4.0.813654 (R2018a) on PCWIN64
+Cross Recurrence Plot Toolbox 5.22 (14-May-2018)
+--------------------------------------------------
+未定义函数或变量 'matext'。
+
+ during ==> crp_big:compute
+ method ==> 11
+ input ==> char	 (compute)
+ errorcode ==> 11
+ workspace dump ==>
+Name	Size	Bytes	Class
+NX	1  1	8	double
+NX0	1  1	8	double
+NY	1  1	8	double
+NY0	1  1	8	double
+Nx	1  1	8	double
+Nx2	1  1	8	double
+Ny	1  1	8	double
+Ny2	1  1	8	double
+Shuttle	1  1	368	struct
+X	800  800	640000	uint8
+action	1  7	14	char
+ax	1  1	8	double
+ay	1  1	8	double
+check_gui	1  3	354	cell
+check_meth	1  10	1160	cell
+check_norm	1  2	236	cell
+cm	19   1	106672	cell
+cm_old	2  3	48	double
+ds	1  1	8	double
+e	1  1	8	double
+errcode	1  1	8	double
+flagClass	0  0	0	double
+h	1  1	8	matlab.ui.control.UIControl
+hCRP	1  1	8	matlab.ui.Figure
+hCtrl	1  1	8	matlab.ui.Figure
+i	1  1	8	double
+i_int	0  0	0	double
+ii	800    1	6400	double
+intclasses	9  1	1106	cell
+j	1  1	8	double
+jj	1  1	8	double
+k	1  1	8	double
+m	1  1	8	double
+maxN	1  1	8	double
+mflag	1  1	8	double
+mx	1  1	8	double
+my	1  1	8	double
+nogui	1  1	8	double
+nonorm	1  1	8	double
+obj	1  1	5476	struct
+plugin_exist	1  1	8	double
+plugin_name	0  0	0	char
+plugin_path	0  0	0	char
+props	1  1	36904	struct
+s_norm	1  1	8	double
+smax	1  1	8	double
+t	1  1	8	double
+txt_cross	0  0	0	char
+unit	0  0	0	char
+varargin	1  1	126	cell
+x	800    1	6400	double
+x0	800    1	6400	double
+x1	800    1	6400	double
+x2	800    1	6400	double
+xout	1  1	8	double
+xscale	800    1	6400	double
+y	800    1	6400	double
+y0	800    1	6400	double
+y1	800    1	6400	double
+y2	800    1	6400	double
+yscale	800    1	6400	double

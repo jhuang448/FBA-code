@@ -1,0 +1,39 @@
+clear all;
+clc;
+close all;
+
+
+fidlist=fopen('C:\Users\rmuser\Desktop\MFCC\HCT_All_forMFCCs.txt')
+hop=0.01; % hop in s
+frm=0.03; % frm in s
+fs=16000; % in Hz
+   % Find the samples of hop and frm
+    s_hop=round(hop*fs);
+    s_frm=round(frm*fs);  
+    % Nearest power of 2 to be taken as FFT size
+    FFT_size=2^(ceil(log2(s_frm))+1);    
+    % Define a windowing function
+    sz_wind_fn=2*(ceil(s_frm/2))+1;
+    win_fn=hann(sz_wind_fn);
+    
+    
+   path=fgetl(fidlist);
+   
+for ct=1:180
+    clc;display('Current Clip')
+    ct
+    clear data;
+    clear fs;
+[data fs]=wavread(fgetl(fidlist));
+szd=size(data);
+if(szd(2)>1)
+    data=data(:,1);
+end
+
+
+
+
+
+
+        
+end

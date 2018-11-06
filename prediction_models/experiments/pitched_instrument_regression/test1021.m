@@ -1,6 +1,6 @@
-load('data/14_39016alignment.mat');
-tfCompnstdF0 = medfilt1(tfCompnstdF0);
-[algndmidi, note_altrd, dtw_cost, path] = alignScore_revDTW(scorePath, tfCompnstdF0, audio, Fs, wSize, hop);
+load('data/14_41618alignment_fixedbug.mat');
+%tfCompnstdF0 = medfilt1(tfCompnstdF0);
+[algndmidi, note_altrd, dtw_cost, path, jump] = alignScore_revDTW(scorePath, tfCompnstdF0, audio, Fs, wSize, hop);
 
 %distance matrix
 D2 = imresize(D./max(max(D)), [1000, 1000]);

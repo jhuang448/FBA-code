@@ -30,7 +30,7 @@ function [p, C, jump] = RevisedDtw(D, idx)
         end
         for (n_B = 2:size(D,2))
             % find preceding min (diag, column, row)
-            if (flag == 1 && n_B < size(D,2)-2) %¡¾¡¿
+            if (flag == 1 && n_B < size(D,2)-2 && max(DeltaP(n_A-1, n_B+1:n_B+2)) < 4) %¡¾¡¿
                 [fC_min, DeltaP(n_A,n_B)]   = min([C(n_A-1,n_B-1), C(n_A-1,n_B), C(n_A,n_B-1), C(n_A-1, n_B+1)+penalty, C(n_A-1, n_B+2)+penalty]);
             else
                 [fC_min, DeltaP(n_A,n_B)]   = min([C(n_A-1,n_B-1), C(n_A-1,n_B), C(n_A,n_B-1)]);

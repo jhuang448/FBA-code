@@ -44,8 +44,8 @@ pitch_in_midi(pitch_in_midi~=0) = pitch_in_midi(pitch_in_midi~=0) - (tf/100);
 tfCompnstdF0 = pitch_in_midi;
 tfCompnstdF0(tfCompnstdF0~=0) = (2.^((pitch_in_midi(tfCompnstdF0~=0)-69)/12))*440;
 
-%¡¾¡¿
-tfCompnstdF0 = medfilt1(tfCompnstdF0);
+%¡¾¡¿MEDIAN FILTER HERE
+%tfCompnstdF0 = medfilt1(tfCompnstdF0);
 jump = 0;
 
 if flag == 1
@@ -54,7 +54,7 @@ if flag == 1
     tfCompnstdF02(tfCompnstdF02~=0) = (2.^((pitch_in_midi2(tfCompnstdF02~=0)-69)/12))*440;
     [algndmid1, note_onsets1, dtw_cost1, path1, jp1] = alignScore_revDTW(scorePath, tfCompnstdF0, audio, Fs, wSize, hop);
     [algndmid2, note_onsets2, dtw_cost2, path2, jp2] = alignScore_revDTW(scorePath, tfCompnstdF02, audio, Fs, wSize, hop);
-    if dtw_cost2 > dtw_cost1
+    if dtw_cost2 > dtw_cost1%¡¾¡ü¡¿
        algndmidi = algndmid1;
        note_altrd = note_onsets1;
        dtw_cost = dtw_cost1;

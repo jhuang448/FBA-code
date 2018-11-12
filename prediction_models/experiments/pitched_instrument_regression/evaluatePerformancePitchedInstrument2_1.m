@@ -11,13 +11,13 @@ DATA_PATH = 'experiments/pitched_instrument_regression/data/';
 
 %flag: whether to combine features
 %flag = 0;%set flag to 0: not combining features
-cmbf1 = 'middleAlto Saxophone5_NonScore_2013';
-cmbf2 = 'middleAlto Saxophone5_NonScore_2014';
-cmbf3 = 'middleAlto Saxophone5_NonScore_2015';
+cmbf1 = ['middleAlto Saxophone5_NonScore_' read_file_name1(end-3:end)];
+cmbf2 = ['middleAlto Saxophone5_NonScore_' read_file_name2(end-3:end)];
+cmbf3 = ['middleAlto Saxophone5_NonScore_' test_file_name(end-3:end)];
 
-cmbf21 = 'middleAlto Saxophone5_Score_pause_2013';
-cmbf22 = 'middleAlto Saxophone5_Score_pause_2014';
-cmbf23 = 'middleAlto Saxophone5_Score_pause_2015';
+%cmbf21 = 'middleAlto Saxophone5_Score_pause_2013';
+%cmbf22 = 'middleAlto Saxophone5_Score_pause_2014';
+%cmbf23 = 'middleAlto Saxophone5_Score_pause_2015';
 
 % Check for existence of file with training data features and labels.
 if(exist('read_file_name1', 'var') && exist('read_file_name2', 'var'))
@@ -40,7 +40,7 @@ labels1 = labels(:, llb-3:llb);
 if flag == 1
     load([full_data_path cmbf1]);
     
-    if cmbf1(23) == 'N'
+    if cmbf1(end) == '3' && cmbf1(23) == 'N'
         features1(6, :) = [];
         labels1(6, :) = [];
     end
@@ -58,6 +58,12 @@ llb = size(labels, 2);
 labels2 = labels(:, llb-3:llb);
 if flag == 1
     load([full_data_path cmbf2]);
+    
+    if cmbf2(end) == '3' && cmbf2(23) == 'N'
+        features2(6, :) = [];
+        labels2(6, :) = [];
+    end
+    
     assert(size(features2, 1) == size(features, 1));
     features2 = [features2, features];
     
@@ -76,6 +82,12 @@ test_labels = labels(:, llb-3:llb);
 %idx3 = student_idx;
 if flag == 1
     load([full_data_path cmbf3]);
+    
+    if cmbf3(end) == '3' && cmbf3(23) == 'N'
+        test_features(6, :) = [];
+        test_labels(6, :) = [];
+    end
+    
     assert(size(test_features, 1) == size(features, 1));
     test_features = [test_features, features];
     
@@ -102,8 +114,8 @@ end
 %train_features(:, 34) = log(train_features(:, 34)+1);
 %test_features(:, 34) = log(test_features(:, 34)+1);
 
-train_features = train_features(:, [1:22]);
-test_features = test_features(:, [1:22]);
+%train_features = train_features(:, [1:22]);
+%test_features = test_features(:, [1:22]);
 
 [train_features, test_features] = NormalizeFeatures(train_features, test_features);
 

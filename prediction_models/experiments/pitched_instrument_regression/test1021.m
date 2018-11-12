@@ -1,4 +1,4 @@
-load('data/14_41618alignment_fixedbug.mat');
+load('data/14_40484alignment.mat');
 %tfCompnstdF0 = medfilt1(tfCompnstdF0);
 [algndmidi, note_altrd, dtw_cost, path, jump] = alignScore_revDTW(scorePath, tfCompnstdF0, audio, Fs, wSize, hop);
 

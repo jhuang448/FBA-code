@@ -31,9 +31,9 @@ function audition_metadata = scanFBA(fba_relative_path, band_option, ...
 root_path = deriveRootPath();
 full_fba_relative_path = [root_path fba_relative_path];
 
-if year_option == '2013'
-    full_fba_relative_path = fba_relative_path;%¡¾¡¿
-end
+%if year_option == '2013'
+%    full_fba_relative_path = fba_relative_path;%¡¾¡¿
+%end
 
 % Figure out which students we retrive metadata for.
 % student_ids is a N X 1 vector.

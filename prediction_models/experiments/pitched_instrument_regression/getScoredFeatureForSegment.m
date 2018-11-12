@@ -107,7 +107,7 @@ for student_idx = 1:num_students
 
   % Extract features.
   features(student_idx, :) = ...
-       extractScoredFeatures(normalized_audio, Resample_fs, WINDOW_SIZE, HOP_SIZE, YEAR_OPTION, NUM_FEATURES);
+       extractScoredFeatures_pathdev(normalized_audio, Resample_fs, WINDOW_SIZE, HOP_SIZE, YEAR_OPTION, NUM_FEATURES);
 
   % Store all assessments.
   segment_assessments = student_assessments(1, :);

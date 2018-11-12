@@ -47,9 +47,6 @@ else
 end
     
 FBA_RELATIVE_PATH = ['..' slashtype '..' slashtype '..' slashtype '..' slashtype 'FBA2013data' slashtype year_folder];
-if YEAR_OPTION == '2013'
-    FBA_RELATIVE_PATH = ['E:' slashtype year_folder];
-end
 % BAND_OPTION = 'middle';
 % INSTRUMENT_OPTION = 'Oboe';
 % SEGMENT_OPTION = 2;

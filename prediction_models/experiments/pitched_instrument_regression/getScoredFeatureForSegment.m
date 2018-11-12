@@ -21,7 +21,7 @@ elseif ispc
 end
 
 DATA_PATH = ['experiments' slashtype 'pitched_instrument_regression' slashtype 'data' slashtype];
-write_file_name = [BAND_OPTION INSTRUMENT_OPTION num2str(SEGMENT_OPTION) '_Score' '_revDTWfilter_' num2str(YEAR_OPTION)];
+write_file_name = [BAND_OPTION INSTRUMENT_OPTION num2str(SEGMENT_OPTION) '_Score' '_windowSlopeMeans_' num2str(YEAR_OPTION)];
 
 % Check for existence of path for writing extracted features.
   root_path = deriveRootPath();
@@ -113,7 +113,7 @@ for student_idx = 1:num_students
   %¡¾¡¿
   if(mod(student_idx, 10) == 0)
     save([full_data_path write_file_name 'sub'], 'features', 'labels');
-    sound(randn(4096, 1), 8192);
+    %sound(randn(4096, 1), 8192);
   end
 end
 

@@ -84,7 +84,7 @@ windowNum = floor((pathlen-window+step)/step);
 slp_m = zeros(1, windowNum);
 %slp_d = zeros(1, windowNum);
 for i = 0:windowNum-1
-    slp_m(i+1) = slope_mean(path(i*step+1:i*step+window, :));
+    slp_m(i+1) = slope_mean(path, i*step+1, i*step+window);
     %[slp_d, ~] = slopeDeviation(path(:, i*step+1:i*step+window));
 end
 features(1, 1:8) = aggregateFeatures(slp_m, 1);

@@ -52,8 +52,8 @@ if flag == 1
     pitch_in_midi2(pitch_in_midi2~=0) = pitch_in_midi2(pitch_in_midi2~=0) + (tf/100);
     tfCompnstdF02 = pitch_in_midi2;
     tfCompnstdF02(tfCompnstdF02~=0) = (2.^((pitch_in_midi2(tfCompnstdF02~=0)-69)/12))*440;
-    [algndmid1, note_onsets1, dtw_cost1, path1, jp1] = alignScore_revDTW(scorePath, tfCompnstdF0, audio, Fs, wSize, hop);
-    [algndmid2, note_onsets2, dtw_cost2, path2, jp2] = alignScore_revDTW(scorePath, tfCompnstdF02, audio, Fs, wSize, hop);
+    [algndmid1, note_onsets1, dtw_cost1, path1, jp1] = alignScore_expandDTW(scorePath, tfCompnstdF0, audio, Fs, wSize, hop);
+    [algndmid2, note_onsets2, dtw_cost2, path2, jp2] = alignScore_expandDTW(scorePath, tfCompnstdF02, audio, Fs, wSize, hop);
     if dtw_cost2 > dtw_cost1%¡¾¡ü¡¿
        algndmidi = algndmid1;
        note_altrd = note_onsets1;
@@ -69,7 +69,7 @@ if flag == 1
        jump = jp2;%¡¾¡¿
     end
 else%¡¾¡¿
-    [algndmidi, note_altrd, dtw_cost, path, jump] = alignScore_revDTW(scorePath, tfCompnstdF0, audio, Fs, wSize, hop);
+    [algndmidi, note_altrd, dtw_cost, path, jump] = alignScore_expandDTW(scorePath, tfCompnstdF0, audio, Fs, wSize, hop);
 end % change to alignScore_revDTW to allow jumps ¡¾¡¿
 
 [slopedev, ~] = slopeDeviation(path);

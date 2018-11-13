@@ -9,6 +9,12 @@ hold on;
 plot(path(:, 2)*1000/size(D, 2),path(:, 1)*1000/size(D, 1),  'r');
 
 %
+newpath = buildPathForPlot(path);
+plot(wav_pitch_contour_in_midi);
+hold on;
+plot(newpath(:, 2), midi_mat(newpath(:, 1), 4));
+
+%
 plot(wav_pitch_contour_in_midi);
 hold on;
 plot(path(:, 2), midi_mat(path(:, 1), 4));

@@ -10,7 +10,7 @@
 % the name in variable write_file_name which includes the band option,
 % instrument option and segment name
 
-function getScoredFeatureForSegment(BAND_OPTION, INSTRUMENT_OPTION, SEGMENT_OPTION, YEAR_OPTION, NUM_FEATURES)
+function getAlignmentDiff(BAND_OPTION, INSTRUMENT_OPTION, SEGMENT_OPTION, YEAR_OPTION, NUM_FEATURES)
 
 if ismac
     % Code to run on Mac plaform
@@ -21,7 +21,7 @@ elseif ispc
 end
 
 DATA_PATH = ['experiments' slashtype 'pitched_instrument_regression' slashtype 'data' slashtype];
-write_file_name = [BAND_OPTION INSTRUMENT_OPTION num2str(SEGMENT_OPTION) '_Score' '_anotherSlopeMeans_' num2str(YEAR_OPTION)];
+write_file_name = [BAND_OPTION INSTRUMENT_OPTION num2str(SEGMENT_OPTION) '_AlignmentDiff_' num2str(YEAR_OPTION)];
 
 % Check for existence of path for writing extracted features.
   root_path = deriveRootPath();
@@ -31,7 +31,7 @@ write_file_name = [BAND_OPTION INSTRUMENT_OPTION num2str(SEGMENT_OPTION) '_Score
     error('Error in your file path.');
   end
 
-% NUM_FEATURES = 25;
+NUM_FEATURES = 4; % diff, len, pct
 HOP_SIZE = 256;
 WINDOW_SIZE = 1024;
 Resample_fs = 44100;
@@ -76,14 +76,14 @@ invalidNo = [];
 disp('Extracting features...');
 
 % One student at a time.
-for student_idx = 89:num_students 
+for student_idx = 1:num_students 
   disp(['Processing student: ' num2str(student_idx)]);
   file_name = audition_metadata.file_paths{student_idx};
   segments = audition_metadata.segments{student_idx};
   student_assessments = audition_metadata.assessments{student_idx};
   
   %¡¾¡¿
-  file_name
+  %file_name
   
   % Retrieve audio for each segment.
   %¡¾¡¿
@@ -104,7 +104,7 @@ for student_idx = 89:num_students
 
   % Extract features.
   features(student_idx, :) = ...
-       extractScoredFeatures(normalized_audio, Resample_fs, WINDOW_SIZE, HOP_SIZE, YEAR_OPTION, NUM_FEATURES);
+       AlignmentDifference(normalized_audio, Resample_fs, WINDOW_SIZE, HOP_SIZE, YEAR_OPTION, NUM_FEATURES);
 
   % Store all assessments.
   segment_assessments = student_assessments(1, :);

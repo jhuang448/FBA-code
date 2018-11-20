@@ -1,9 +1,0 @@
-function newpath = buildPathForPlot(path)
-newpath = size(path(end,2), 2);
-p = 1;
-newpath(1:path(1,2), 1) = path(1,1);
-newpath(1:path(1,2), 2) = [1:path(1,2)]
-for i=2:size(path, 1)
-    newpath(path(i-1,2):path(i))
-    
-end

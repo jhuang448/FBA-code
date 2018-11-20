@@ -11,9 +11,9 @@ DATA_PATH = 'experiments/pitched_instrument_regression/data/';
 
 %flag: whether to combine features
 %flag = 0;%set flag to 0: not combining features
-cmbf1 = ['middleAlto Saxophone5_NonScore_' read_file_name1(end-3:end)];
-cmbf2 = ['middleAlto Saxophone5_NonScore_' read_file_name2(end-3:end)];
-cmbf3 = ['middleAlto Saxophone5_NonScore_' test_file_name(end-3:end)];
+cmbf1 = ['middleAlto Saxophone5_Score_fixedrevDTW_' read_file_name1(end-3:end)];
+cmbf2 = ['middleAlto Saxophone5_Score_fixedrevDTW_' read_file_name2(end-3:end)];
+cmbf3 = ['middleAlto Saxophone5_Score_fixedrevDTW_' test_file_name(end-3:end)];
 
 %cmbf21 = 'middleAlto Saxophone5_Score_pause_2013';
 %cmbf22 = 'middleAlto Saxophone5_Score_pause_2014';
@@ -114,8 +114,8 @@ end
 %train_features(:, 34) = log(train_features(:, 34)+1);
 %test_features(:, 34) = log(test_features(:, 34)+1);
 
-%train_features = train_features(:, [1:22]);
-%test_features = test_features(:, [1:22]);
+train_features = train_features(:, [1:22]);
+test_features = test_features(:, [1:22]);
 
 [train_features, test_features] = NormalizeFeatures(train_features, test_features);
 
@@ -136,6 +136,6 @@ for i = 1:4
              '\nCorrelation coefficient: ' num2str(r) '\n']);
 end
 %q_pdt = round(pdt.*10)./10;
-%save(['E:\SEM1\FBA\dataAnalysis\middle_saxophone_21_15'], 'pdt', 'q_pdt', 'test_labels');
+save(['predictions/Score_alignLength_453'], 'pdt', 'test_labels');
 end
 

@@ -76,14 +76,14 @@ invalidNo = [];
 disp('Extracting features...');
 
 % One student at a time.
-for student_idx = 1:num_students 
+for student_idx = 58:num_students 
   disp(['Processing student: ' num2str(student_idx)]);
   file_name = audition_metadata.file_paths{student_idx};
   segments = audition_metadata.segments{student_idx};
   student_assessments = audition_metadata.assessments{student_idx};
   
   %¡¾¡¿
-  %file_name
+  file_name
   
   % Retrieve audio for each segment.
   %¡¾¡¿

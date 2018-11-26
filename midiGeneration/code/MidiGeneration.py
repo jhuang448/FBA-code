@@ -10,7 +10,61 @@ import numpy as np
 import random
 from mido import MidiFile, Message
 
+def removeOverlap(mid, trackno, iNoteOn):
+    #newmid = MidiFile()
+    track = mid.tracks[trackno]
+    newtrack = track[0:iNoteOn]
+    #newmid.tracks.append(mid.tracks[0])
+    #newmid.tracks.append(mid.tracks[1])
+    #newmid.tracks.append(newtrack)
+    i = iNoteOn
+    j = iNoteOn+1
+    note_v = 0
+    cuT = 0
+    lcuT = 0
+    onT = 0
+    while(i < len(track)):
+        onT = onT + track[i].time
+        if (track[i].type == 'note_on'):
+            note_v = track[i].note
+            #print('i=' + str(note_v))
+            j = i + 1
+            lcuT = cuT
+            cuT = 0
+            while (track[j].type != 'note_off' or track[j].note != note_v):
+                cuT = cuT + track[j].time
+                j = j + 1
+                #print(cuT)
+            cuT = cuT + track[j].time
+            # note off found
+            # append note on and note off
+            #print('j=' + str(note_v))
+            #print('onT=' + str(onT) + ' onT-lcut= ' + str(onT-lcuT))
+            event = track[i]
+            neweventi = Message(event.type, channel=0, note = event.note, velocity=event.velocity, time = max(onT-lcuT, 0))
+            newtrack.append(neweventi)
+            event = track[j]
+            neweventj = Message(event.type, channel=0, note = event.note, velocity=event.velocity, time = cuT)
+            newtrack.append(neweventj)
+            onT = 0
+        i = i + 1;
+    
+    mid.tracks[1] = newtrack
+    #mid.save('F:/FBA2013experiments/FBA2013experiments/src/midiGeneration/newmid.mid')
+    return mid
+    
+
+
 def generateMidi(year, jump_num, max_jump_dist, silence_length, if_noise, if_mistake, index):
+    # year: year option
+    # jump_num: number of jumps to generate in one file
+    # max_jump_dist: the maximum distance of jump
+    # silence_length: the length of silence before jumping
+    # if_noise: variance in time (not implemented yet)
+    # if_mistake: whether to add mistakes in the last note before a jump
+    # index: the index of generated file (to determine a unique file name)
+    
+    # read the original midi and specify the write file name
     mid = MidiFile('F:/FBA2013experiments/FBA2013experiments/src/midiGeneration/original/' \
                    + str(year) + 'middle_saxophone.mid')
     writeFile = 'F:/FBA2013experiments/FBA2013experiments/src/midiGeneration/generated/' \
@@ -23,6 +77,10 @@ def generateMidi(year, jump_num, max_jump_dist, silence_length, if_noise, if_mis
         begin = begin + 1
     end = len(mid.tracks[1])-2
     
+    # remove the overlap in the original midi
+    mid = removeOverlap(mid, 1, begin)
+    
+    # add jump(s)
     for i in np.arange(jump_num):
         print('add the ' + str(i) + ' th jump')
         # jump_num: decide where is the jump (posi^ 1 2 jump^ 1 2 3 4 ...)
@@ -32,46 +90,40 @@ def generateMidi(year, jump_num, max_jump_dist, silence_length, if_noise, if_mis
             jump_posi = jump_posi - 1
         print('jump_dist: ' + str(jump_dist))
         print('jump_posi: ' + str(jump_posi))
-    
-        # swap notes...
-        #for k in np.arange(jump_dist):
-        #    assert(mid.tracks[1][jump_posi+k].type == 'note_on')
-        #    t = jump_posi + 2*k + 1
-        #    print('find note_off of ' + str(t))
-        #    while(!((mid.tracks[1][t].type == 'note_off') and (mid.tracks[1][jump_posi+2*k].note == mid.tracks[1][t].note))){
-        #            t = t + 1
-        #    }
-        #    print("t = " + str(t))
-    
-    
-    
-        jump_dist = 2
-        jump_posi = begin
+        
+        #jump_dist = 2 # debug
+        #jump_posi = begin # debug
         # add silence and insert the new notes
-        # currently no mistake and noise
         event = mid.tracks[1][jump_posi]
         newevent = Message(event.type, channel=0, note = event.note, velocity=event.velocity, time = event.time+silence_length)
         mid.tracks[1].insert(jump_posi+2*jump_dist, newevent)
         print('insert at: ' + str(jump_posi+2*jump_dist))
         for j in np.arange(2*jump_dist-1):
-            print(jump_posi+j+1)
+            #print(jump_posi+j+1)
             p = jump_posi+j+1
             event = mid.tracks[1][int(p)]
-            mid.tracks[1].insert(jump_posi+2*jump_dist+j+1, event)
+            newevent = Message(event.type, channel=0, note = event.note, velocity=event.velocity, time = event.time)
+            mid.tracks[1].insert(jump_posi+2*jump_dist+j+1, newevent)
         
+        # add a mistake to the last note before the jump
+        if (if_mistake == 1):
+            mis = random.randint(-2, 2)
+            no = random.randint(0, jump_dist-1)
+            mid.tracks[1][jump_posi+no*2].note = mid.tracks[1][jump_posi+no*2].note+mis
+            mid.tracks[1][jump_posi+no*2+1].note = mid.tracks[1][jump_posi+no*2+1].note+mis
         
-        end = end + jump_dist
-    
-    
-    
-    
-    
+        end = end + jump_dist * 2 # not used
+
     
     mid.save(writeFile)
 
 
 if __name__ == '__main__':
-    num = 1
+    num = 10
     for i in np.arange(num):
-        generateMidi(year = 2015, jump_num = 1, max_jump_dist = 2, silence_length = 1500, \
-                     if_noise = 0, if_mistake = 0, index = i)
+        generateMidi(year = 2013, jump_num = 1, max_jump_dist = 4, silence_length = 1200, \
+                     if_noise = 0, if_mistake = 1, index = i)
+        generateMidi(year = 2014, jump_num = 1, max_jump_dist = 4, silence_length = 1200, \
+                     if_noise = 0, if_mistake = 1, index = i)
+        generateMidi(year = 2015, jump_num = 1, max_jump_dist = 4, silence_length = 1200, \
+                     if_noise = 0, if_mistake = 1, index = i)

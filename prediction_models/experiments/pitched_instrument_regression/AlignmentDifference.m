@@ -22,8 +22,8 @@ m3(path3(end, 2):end) = midi_mat(path3(end, 1), 4);
 
 %plot(wav_pitch_contour_in_midi, '-b');
 %hold on;
-%plot(m1, '-r');
-%plot(m2, '-g');
+%plot(m1, '-g');
+%plot(m2, '-r');
 %plot(m3, '-m');
 
 diffMtx = zeros(1, 4);
@@ -31,3 +31,16 @@ diffMtx(1) = sum(abs(m1-m2));
 diffMtx(2) = sum(abs(m2-m3));
 diffMtx(3) = sum(abs(m1-m3));
 diffMtx(4) = len;
+
+subplot(2,1,1);
+plot(wav_pitch_contour_in_midi, '-b');
+hold on;
+plot(m2, '-r');
+diff_p = find((m2-m3));
+plot(diff_p, 45, '-*k')
+subplot(2,1,2)
+plot(wav_pitch_contour_in_midi, '-b');
+hold on;
+plot(m3, '-m');
+plot(diff_p, 45, '-*k')
+5;

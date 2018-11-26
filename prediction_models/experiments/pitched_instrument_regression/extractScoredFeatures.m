@@ -95,6 +95,7 @@ NoteAvgDevFromRef(ShortNotes) = [];
 NoteStdDevFromRef(ShortNotes) = [];
 NormCountGreaterStdDev(ShortNotes) = [];
 
+% might be note insertion ratio
 features(1,1) = sum(algndmidi(:,7))/(sum(algndmidi(:,7))+sum(algndmidi(note_altrd+1,6)-(algndmidi(note_altrd,6)+algndmidi(note_altrd,7))));  % sum of silences between the number of notes in the score and the student (inserted notes)
 features(1,2)=mean(NoteAvgDevFromRef);
 features(1,3)=std(NoteAvgDevFromRef);
@@ -117,7 +118,7 @@ features(1,15)=slopedev;
 [note_indices] = computeNoteOccurence(scoreMid);
 vecDurFeat = DurHistScore(algndmidi, note_indices, note_altrd, Fs, timeStep);
 features(1,16:21)=vecDurFeat';
-features(1,22) = length(ShortNotes)*sum(numSampShortNotes)*timeStep / sum(algndmidi(:,7)); 
+features(1,22) = length(ShortNotes)*sum(numSampShortNotes)*timeStep / sum(algndmidi(:,7));  % note deletion ratio
 features(1, 23) = jump; %¡¾¡¿ jump
 % features(1,23) = length(path);
 % features(1,24) = length(f0);

@@ -112,7 +112,7 @@ features(1,11)=std(NormCountGreaterStdDev);
 features(1,12)=max(NormCountGreaterStdDev);
 features(1,13)=min(NormCountGreaterStdDev);
  
-features(1,14)=dtw_cost/length(path);
+features(1,14)=dtw_cost/path(end,2) %length(path); for path of expanded midi
 features(1,15)=slopedev;
  
 [note_indices] = computeNoteOccurence(scoreMid);

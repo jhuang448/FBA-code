@@ -29,22 +29,4 @@ end
 
 % features:
 bar(1:23, I{1}{3}+I{2}{3}+I{3}{3});
-title('accumulated difference of all the features');
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-features_m = [];
-features_ex = [];
-for i=2013:2015
-    load('middleAlto Saxophone5_Score_fixedrevDTW_' + string(i) + '.mat')
-    features_m = [features_m;features];
-    load('middleAlto Saxophone5_Score_alignLength_' + string(i) + '.mat')
-    features_ex = [features_ex;features];
-    
-
-end
-[features_m, ~] = NormalizeFeatures(features_m, zeros(1,23));
-[features_ex, ~] = NormalizeFeatures(features_ex, zeros(1,23));
-diff = abs(features_m - features_ex);
-sum_feature_diff = sum(diff, 1)/size(features_m, 1);
-bar(1:23, sum_feature_diff);
-title('accumulated difference of all the features');
+title('accumulated difference in all ')

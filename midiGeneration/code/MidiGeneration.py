@@ -41,10 +41,13 @@ def removeOverlap(mid, trackno, iNoteOn):
             #print('j=' + str(note_v))
             #print('onT=' + str(onT) + ' onT-lcut= ' + str(onT-lcuT))
             event = track[i]
-            neweventi = Message(event.type, channel=0, note = event.note, velocity=event.velocity, time = max(onT-lcuT, 0))
+            neweventi = Message(event.type, channel=0, note = event.note, velocity=event.velocity, \
+                                time = max(onT-lcuT+int(np.random.normal(0, 20, 1)[0]), \
+                                           int(np.random.normal(0, 10, 1)[0]),0))
             newtrack.append(neweventi)
             event = track[j]
-            neweventj = Message(event.type, channel=0, note = event.note, velocity=event.velocity, time = cuT)
+            neweventj = Message(event.type, channel=0, note = event.note, velocity=event.velocity, \
+                                time = max(cuT+int(np.random.normal(0, 50, 1)[0]), 0))
             newtrack.append(neweventj)
             onT = 0
         i = i + 1;
@@ -67,8 +70,8 @@ def generateMidi(year, jump_num, max_jump_dist, silence_length, if_noise, if_mis
     # read the original midi and specify the write file name
     mid = MidiFile('F:/FBA2013experiments/FBA2013experiments/src/midiGeneration/original/' \
                    + str(year) + 'middle_saxophone.mid')
-    writeFile = 'F:/FBA2013experiments/FBA2013experiments/src/midiGeneration/generated/' \
-                   + str(year) + '_' + str(max_jump_dist) + '_' + str(silence_length) + \
+    writeFile = 'F:/FBA2013experiments/FBA2013experiments/src/midiGeneration/generated/1129/' \
+                   + str(year) + '_' + str(jump_num) + '_' + str(max_jump_dist) + '_' + str(silence_length) + \
                    '_' + str(if_noise) + '_' + str(if_mistake) + '_No_' + str(index) + '.mid'
     
     # find the range of note_on/note_off messages
@@ -126,4 +129,22 @@ if __name__ == '__main__':
         generateMidi(year = 2014, jump_num = 1, max_jump_dist = 4, silence_length = 1200, \
                      if_noise = 0, if_mistake = 1, index = i)
         generateMidi(year = 2015, jump_num = 1, max_jump_dist = 4, silence_length = 1200, \
+                     if_noise = 0, if_mistake = 1, index = i)
+        generateMidi(year = 2013, jump_num = 2, max_jump_dist = 4, silence_length = 1200, \
+                     if_noise = 0, if_mistake = 1, index = i)
+        generateMidi(year = 2014, jump_num = 2, max_jump_dist = 4, silence_length = 1200, \
+                     if_noise = 0, if_mistake = 1, index = i)
+        generateMidi(year = 2015, jump_num = 2, max_jump_dist = 4, silence_length = 1200, \
+                     if_noise = 0, if_mistake = 1, index = i)
+        generateMidi(year = 2013, jump_num = 3, max_jump_dist = 4, silence_length = 1200, \
+                     if_noise = 0, if_mistake = 1, index = i)
+        generateMidi(year = 2014, jump_num = 3, max_jump_dist = 4, silence_length = 1200, \
+                     if_noise = 0, if_mistake = 1, index = i)
+        generateMidi(year = 2015, jump_num = 3, max_jump_dist = 4, silence_length = 1200, \
+                     if_noise = 0, if_mistake = 1, index = i)
+        generateMidi(year = 2013, jump_num = 4, max_jump_dist = 4, silence_length = 1200, \
+                     if_noise = 0, if_mistake = 1, index = i)
+        generateMidi(year = 2014, jump_num = 4, max_jump_dist = 4, silence_length = 1200, \
+                     if_noise = 0, if_mistake = 1, index = i)
+        generateMidi(year = 2015, jump_num = 4, max_jump_dist = 4, silence_length = 1200, \
                      if_noise = 0, if_mistake = 1, index = i)

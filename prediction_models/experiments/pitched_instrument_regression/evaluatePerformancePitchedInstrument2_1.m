@@ -114,15 +114,15 @@ end
 %train_features(:, 34) = log(train_features(:, 34)+1);
 %test_features(:, 34) = log(test_features(:, 34)+1);
 
-train_features = train_features(:, [1:22]);
-test_features = test_features(:, [1:22]);
+train_features = train_features(:, [1:23]);
+test_features = test_features(:, [1:23]);
 
 [train_features, test_features] = NormalizeFeatures(train_features, test_features);
 
 pdt = [];
 Rsq_r = [];
-%for i = 1:4
-    i = 2;
+for i = 1:4
+    %i = 2;
     % Train the classifier and get predictions for the current fold.
     svm = svmtrain(train_labels(:, i), train_features, '-s 4 -t 0 -q');
     predictions = svmpredict(test_labels(:, i), test_features, svm, '-q');
@@ -134,7 +134,7 @@ Rsq_r = [];
     fprintf(['\nResults complete.\nR squared: ' num2str(Rsq) ...
              '\nStandard error: ' num2str(S) '\nP value: ' num2str(p) ...
              '\nCorrelation coefficient: ' num2str(r) '\n']);
-%end
+end
 %q_pdt = round(pdt.*10)./10;
 %save(['predictions/Score_alignLength_453'], 'pdt', 'test_labels');
 end

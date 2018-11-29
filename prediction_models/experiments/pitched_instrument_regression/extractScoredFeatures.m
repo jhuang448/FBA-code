@@ -52,27 +52,25 @@ if flag == 1
     pitch_in_midi2(pitch_in_midi2~=0) = pitch_in_midi2(pitch_in_midi2~=0) + (tf/100);
     tfCompnstdF02 = pitch_in_midi2;
     tfCompnstdF02(tfCompnstdF02~=0) = (2.^((pitch_in_midi2(tfCompnstdF02~=0)-69)/12))*440;
-    [algndmid1, note_onsets1, dtw_cost1, path1, jp1] = alignScore_expandDTW(scorePath, tfCompnstdF0, audio, Fs, wSize, hop);
-    [algndmid2, note_onsets2, dtw_cost2, path2, jp2] = alignScore_expandDTW(scorePath, tfCompnstdF02, audio, Fs, wSize, hop);
+    [algndmid1, note_onsets1, dtw_cost1, path1] = alignScore(scorePath, tfCompnstdF0, audio, Fs, wSize, hop);
+    [algndmid2, note_onsets2, dtw_cost2, path2] = alignScore(scorePath, tfCompnstdF02, audio, Fs, wSize, hop);
     if dtw_cost2 > dtw_cost1%¡¾¡ü¡¿
        algndmidi = algndmid1;
        note_altrd = note_onsets1;
        dtw_cost = dtw_cost1;
        path = path1;
-       jump = jp1;%¡¾¡¿
+       %jump = jp1;%¡¾¡¿
     else
        algndmidi = algndmid2;
        note_altrd = note_onsets2;
        dtw_cost = dtw_cost2;
        path = path2;
        tfCompnstdF0 = tfCompnstdF02;
-       jump = jp2;%¡¾¡¿
+       %jump = jp2;%¡¾¡¿
     end
 else%¡¾¡¿
-    [algndmidi, note_altrd, dtw_cost, path, jump] = alignScore_expandDTW(scorePath, tfCompnstdF0, audio, Fs, wSize, hop);
+    [algndmidi, note_altrd, dtw_cost, path] = alignScore(scorePath, tfCompnstdF0, audio, Fs, wSize, hop);
 end % change to alignScore_revDTW to allow jumps ¡¾¡¿
-
-path = buildPathForPlot(path); % when using expandDTW!!!!
 
 [slopedev, ~] = slopeDeviation(path);
 [rwStu, clStu] = size(algndmidi);
@@ -121,7 +119,7 @@ features(1,15)=slopedev;
 vecDurFeat = DurHistScore(algndmidi, note_indices, note_altrd, Fs, timeStep);
 features(1,16:21)=vecDurFeat';
 features(1,22) = length(ShortNotes)*sum(numSampShortNotes)*timeStep / sum(algndmidi(:,7));  % note deletion ratio
-features(1, 23) = jump; %¡¾¡¿ jump
+%features(1, 23) = jump; %¡¾¡¿ jump
 % features(1,23) = length(path);
 % features(1,24) = length(f0);
       
